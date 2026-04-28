@@ -1,301 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="theme-color" content="#0a0a0a"/>
-<title>moneyFlow</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwYTBhMGEiLz4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzE0MTQxNCIvPgogIDx0ZXh0IHg9IjE2IiB5PSI0MiIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmY0NDQ0Ij7igrk8L3RleHQ+CiAgPHBvbHlsaW5lIHBvaW50cz0iMzgsMjggNTIsMjggNTIsNDIgMzgsNDIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmNDQ0NCIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwb2x5bGluZSBwb2ludHM9IjQ2LDIyIDU0LDMwIDQ2LDM4IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjQ0NDQiIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg=="/>
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwYTBhMGEiLz4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzE0MTQxNCIvPgogIDx0ZXh0IHg9IjE2IiB5PSI0MiIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmY0NDQ0Ij7igrk8L3RleHQ+CiAgPHBvbHlsaW5lIHBvaW50cz0iMzgsMjggNTIsMjggNTIsNDIgMzgsNDIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmNDQ0NCIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwb2x5bGluZSBwb2ludHM9IjQ2LDIyIDU0LDMwIDQ2LDM4IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjQ0NDQiIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg=="/>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwYTBhMGEiLz4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzE0MTQxNCIvPgogIDwhLS0gUnVwZWUgc3ltYm9sIC0tPgogIDx0ZXh0IHg9IjE2IiB5PSI0MiIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmY0NDQ0Ij7igrk8L3RleHQ+CiAgPCEtLSBBcnJvdyAtLT4KICA8cG9seWxpbmUgcG9pbnRzPSIzOCwyOCA1MiwyOCA1Miw0MiAzOCw0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmY0NDQ0IiBzdHJva2Utd2lkdGg9IjMuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBvbHlsaW5lIHBvaW50cz0iNDYsMjIgNTQsMzAgNDYsMzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmNDQ0NCIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K"/>
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwYTBhMGEiLz4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzE0MTQxNCIvPgogIDwhLS0gUnVwZWUgc3ltYm9sIC0tPgogIDx0ZXh0IHg9IjE2IiB5PSI0MiIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmY0NDQ0Ij7igrk8L3RleHQ+CiAgPCEtLSBBcnJvdyAtLT4KICA8cG9seWxpbmUgcG9pbnRzPSIzOCwyOCA1MiwyOCA1Miw0MiAzOCw0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmY0NDQ0IiBzdHJva2Utd2lkdGg9IjMuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBvbHlsaW5lIHBvaW50cz0iNDYsMjIgNTQsMzAgNDYsMzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmNDQ0NCIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@500;600;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{
-  --bg:#0a0a0a;--s1:#141414;--s2:#1c1c1c;--s3:#242424;
-  --b1:#2a2a2a;--b2:#3a3a3a;--b3:#505050;
-  --t1:#f0f0f0;--t2:#888;--t3:#444;
-  --red:#ff4444;--redbg:#180808;--redbd:#3d1010;
-  --grn:#22c55e;--grnbg:#071510;--grnbd:#0e3020;
-  --blu:#3b82f6;--blubg:#080e1a;--blubd:#102040;
-  --r:10px;--rl:14px;
-}
-html,body{background:var(--bg);color:var(--t1);font-family:'Syne',sans-serif;min-height:100vh;overscroll-behavior:none}
-.app{max-width:440px;margin:0 auto;padding:0 0 60px}
-.hdr{padding:24px 20px 20px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:20px;font-weight:700;letter-spacing:-0.3px}
-.logo em{color:var(--red);font-style:normal}
-#toast{font-family:'DM Mono',monospace;font-size:11px;color:var(--t2);max-width:200px;text-align:right;line-height:1.4;transition:color 0.2s}
-.sec{padding:0 16px;margin-bottom:18px}
-.lbl{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
-.flow-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.fb{padding:13px 6px;border-radius:var(--r);border:1.5px solid var(--b1);background:var(--s1);color:var(--t3);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:border-color 0.12s,background 0.12s,color 0.12s,transform 0.1s;text-align:center;letter-spacing:0.03em}
-.fb:active{transform:scale(0.94)}
-.fb.sel-out{background:var(--redbg);border-color:var(--red);color:var(--red)}
-.fb.sel-in{background:var(--grnbg);border-color:var(--grn);color:var(--grn)}
-.fb.sel-tr{background:var(--blubg);border-color:var(--blu);color:var(--blu)}
-.amt-box{background:var(--s1);border:1.5px solid var(--b1);border-radius:var(--rl);padding:14px 18px;display:flex;align-items:center;gap:8px;transition:border-color 0.15s}
-.amt-box:focus-within{border-color:var(--b3)}
-.rp{font-family:'DM Mono',monospace;font-size:24px;color:var(--t3);line-height:1;user-select:none}
-#amount{flex:1;background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:30px;font-weight:500;color:var(--t1);caret-color:var(--red);min-width:0}
-#amount::placeholder{color:var(--t3)}
-.acct-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.ab{padding:11px 4px;border-radius:var(--r);border:1.5px solid var(--b1);background:var(--s1);color:var(--t3);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.12s;text-align:center}
-.ab:active{transform:scale(0.94)}
-.ab.on{background:var(--s3);border-color:var(--b3);color:var(--t1);box-shadow:0 0 0 1px var(--b2)}
-.cat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.cb{padding:10px 3px 9px;border-radius:var(--r);border:1.5px solid var(--b1);background:var(--s1);color:var(--t3);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;cursor:pointer;transition:all 0.12s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;line-height:1.2}
-.cb .i{font-size:17px;line-height:1}
-.cb:active{transform:scale(0.92)}
-.cb.on{background:var(--s3);border-color:var(--b3);color:var(--t1);box-shadow:0 0 0 1px var(--b2)}
-.ti{width:100%;background:var(--s1);border:1.5px solid var(--b1);border-radius:var(--r);padding:12px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--t1);outline:none;transition:border-color 0.15s}
-.ti::placeholder{color:var(--t3)}
-.ti:focus{border-color:var(--b3)}
-.div{height:1px;background:var(--b1);margin:2px 16px 18px}
-.sub-wrap{padding:0 16px}
-#sbtn{width:100%;padding:15px;border-radius:var(--rl);border:none;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.05em;transition:background 0.18s,transform 0.1s,opacity 0.15s;color:#fff;background:var(--red)}
-#sbtn:active{transform:scale(0.98)}
-#sbtn:disabled{opacity:0.45;cursor:not-allowed;transform:none}
-#sbtn.c-in{background:var(--grn)}
-#sbtn.c-tr{background:var(--blu)}
-#sbtn.c-ok{background:#15803d}
-#sbtn.c-er{background:#7f1d1d}
-.hidden{display:none!important}
-@keyframes up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.sec:nth-child(1){animation:up 0.25s 0.0s both}
-.sec:nth-child(2){animation:up 0.25s 0.05s both}
-.sec:nth-child(3){animation:up 0.25s 0.1s both}
-.sec:nth-child(4){animation:up 0.25s 0.15s both}
-.sec:nth-child(5){animation:up 0.25s 0.2s both}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>moneyFlow</title>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwYTBhMGEiLz4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzE0MTQxNCIvPgogIDx0ZXh0IHg9IjE2IiB5PSI0MiIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmY0NDQ0Ij7igrk8L3RleHQ+CiAgPHBvbHlsaW5lIHBvaW50cz0iMzgsMjggNTIsMjggNTIsNDIgMzgsNDIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmNDQ0NCIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwb2x5bGluZSBwb2ludHM9IjQ2LDIyIDU0LDMwIDQ2LDM4IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjQ0NDQiIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==" />
+  <link rel="apple-touch-icon"
+    href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwYTBhMGEiLz4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzE0MTQxNCIvPgogIDx0ZXh0IHg9IjE2IiB5PSI0MiIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmY0NDQ0Ij7igrk8L3RleHQ+CiAgPHBvbHlsaW5lIHBvaW50cz0iMzgsMjggNTIsMjggNTIsNDIgMzgsNDIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmNDQ0NCIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwb2x5bGluZSBwb2ludHM9IjQ2LDIyIDU0LDMwIDQ2LDM4IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjQ0NDQiIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwYTBhMGEiLz4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzE0MTQxNCIvPgogIDwhLS0gUnVwZWUgc3ltYm9sIC0tPgogIDx0ZXh0IHg9IjE2IiB5PSI0MiIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmY0NDQ0Ij7igrk8L3RleHQ+CiAgPCEtLSBBcnJvdyAtLT4KICA8cG9seWxpbmUgcG9pbnRzPSIzOCwyOCA1MiwyOCA1Miw0MiAzOCw0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmY0NDQ0IiBzdHJva2Utd2lkdGg9IjMuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBvbHlsaW5lIHBvaW50cz0iNDYsMjIgNTQsMzAgNDYsMzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmNDQ0NCIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K" />
+  <link rel="apple-touch-icon"
+    href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwYTBhMGEiLz4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzE0MTQxNCIvPgogIDwhLS0gUnVwZWUgc3ltYm9sIC0tPgogIDx0ZXh0IHg9IjE2IiB5PSI0MiIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmY0NDQ0Ij7igrk8L3RleHQ+CiAgPCEtLSBBcnJvdyAtLT4KICA8cG9seWxpbmUgcG9pbnRzPSIzOCwyOCA1MiwyOCA1Miw0MiAzOCw0MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmY0NDQ0IiBzdHJva2Utd2lkdGg9IjMuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBvbHlsaW5lIHBvaW50cz0iNDYsMjIgNTQsMzAgNDYsMzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmNDQ0NCIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --s1: #141414;
+      --s2: #1c1c1c;
+      --s3: #242424;
+      --b1: #2a2a2a;
+      --b2: #3a3a3a;
+      --b3: #505050;
+      --t1: #f0f0f0;
+      --t2: #888;
+      --t3: #444;
+      --red: #ff4444;
+      --redbg: #180808;
+      --redbd: #3d1010;
+      --grn: #22c55e;
+      --grnbg: #071510;
+      --grnbd: #0e3020;
+      --blu: #3b82f6;
+      --blubg: #080e1a;
+      --blubd: #102040;
+      --r: 10px;
+      --rl: 14px;
+    }
+
+    html,
+    body {
+      background: var(--bg);
+      color: var(--t1);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overscroll-behavior: none
+    }
+
+    .app {
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 0 0 60px
+    }
+
+    .hdr {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px
+    }
+
+    .logo em {
+      color: var(--red);
+      font-style: normal
+    }
+
+    #toast {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--t2);
+      max-width: 200px;
+      text-align: right;
+      line-height: 1.4;
+      transition: color 0.2s
+    }
+
+    .sec {
+      padding: 0 16px;
+      margin-bottom: 18px
+    }
+
+    .lbl {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--t3);
+      margin-bottom: 8px
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px
+    }
+
+    .fb {
+      padding: 13px 6px;
+      border-radius: var(--r);
+      border: 1.5px solid var(--b1);
+      background: var(--s1);
+      color: var(--t3);
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: border-color 0.12s, background 0.12s, color 0.12s, transform 0.1s;
+      text-align: center;
+      letter-spacing: 0.03em
+    }
+
+    .fb:active {
+      transform: scale(0.94)
+    }
+
+    .fb.sel-out {
+      background: var(--redbg);
+      border-color: var(--red);
+      color: var(--red)
+    }
+
+    .fb.sel-in {
+      background: var(--grnbg);
+      border-color: var(--grn);
+      color: var(--grn)
+    }
+
+    .fb.sel-tr {
+      background: var(--blubg);
+      border-color: var(--blu);
+      color: var(--blu)
+    }
+
+    .amt-box {
+      background: var(--s1);
+      border: 1.5px solid var(--b1);
+      border-radius: var(--rl);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.15s
+    }
+
+    .amt-box:focus-within {
+      border-color: var(--b3)
+    }
+
+    .rp {
+      font-family: 'DM Mono', monospace;
+      font-size: 24px;
+      color: var(--t3);
+      line-height: 1;
+      user-select: none
+    }
+
+    #amount {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 30px;
+      font-weight: 500;
+      color: var(--t1);
+      caret-color: var(--red);
+      min-width: 0
+    }
+
+    #amount::placeholder {
+      color: var(--t3)
+    }
+
+    .acct-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px
+    }
+
+    .ab {
+      padding: 11px 4px;
+      border-radius: var(--r);
+      border: 1.5px solid var(--b1);
+      background: var(--s1);
+      color: var(--t3);
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.12s;
+      text-align: center
+    }
+
+    .ab:active {
+      transform: scale(0.94)
+    }
+
+    .ab.on {
+      background: var(--s3);
+      border-color: var(--b3);
+      color: var(--t1);
+      box-shadow: 0 0 0 1px var(--b2)
+    }
+
+    .cat-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px
+    }
+
+    .cb {
+      padding: 10px 3px 9px;
+      border-radius: var(--r);
+      border: 1.5px solid var(--b1);
+      background: var(--s1);
+      color: var(--t3);
+      font-family: 'Syne', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.12s;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      line-height: 1.2
+    }
+
+    .cb .i {
+      font-size: 17px;
+      line-height: 1
+    }
+
+    .cb:active {
+      transform: scale(0.92)
+    }
+
+    .cb.on {
+      background: var(--s3);
+      border-color: var(--b3);
+      color: var(--t1);
+      box-shadow: 0 0 0 1px var(--b2)
+    }
+
+    .ti {
+      width: 100%;
+      background: var(--s1);
+      border: 1.5px solid var(--b1);
+      border-radius: var(--r);
+      padding: 12px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--t1);
+      outline: none;
+      transition: border-color 0.15s
+    }
+
+    .ti::placeholder {
+      color: var(--t3)
+    }
+
+    .ti:focus {
+      border-color: var(--b3)
+    }
+
+    .div {
+      height: 1px;
+      background: var(--b1);
+      margin: 2px 16px 18px
+    }
+
+    .sub-wrap {
+      padding: 0 16px
+    }
+
+    #sbtn {
+      width: 100%;
+      padding: 15px;
+      border-radius: var(--rl);
+      border: none;
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background 0.18s, transform 0.1s, opacity 0.15s;
+      color: #fff;
+      background: var(--red)
+    }
+
+    #sbtn:active {
+      transform: scale(0.98)
+    }
+
+    #sbtn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none
+    }
+
+    #sbtn.c-in {
+      background: var(--grn)
+    }
+
+    #sbtn.c-tr {
+      background: var(--blu)
+    }
+
+    #sbtn.c-ok {
+      background: #15803d
+    }
+
+    #sbtn.c-er {
+      background: #7f1d1d
+    }
+
+    .hidden {
+      display: none !important
+    }
+
+    @keyframes up {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .sec:nth-child(1) {
+      animation: up 0.25s 0.0s both
+    }
+
+    .sec:nth-child(2) {
+      animation: up 0.25s 0.05s both
+    }
+
+    .sec:nth-child(3) {
+      animation: up 0.25s 0.1s both
+    }
+
+    .sec:nth-child(4) {
+      animation: up 0.25s 0.15s both
+    }
+
+    .sec:nth-child(5) {
+      animation: up 0.25s 0.2s both
+    }
+  </style>
 </head>
+
 <body>
-<div class="app">
+  <div class="app">
 
-  <div class="hdr">
-    <div class="logo">money<em>Flow</em></div>
-    <div id="toast"></div>
-  </div>
-
-  <div class="sec">
-    <div class="lbl">Flow Type</div>
-    <div class="flow-row">
-      <button class="fb" data-v="IN (+)" data-c="in" onclick="setFlow(this)">IN +</button>
-      <button class="fb sel-out" data-v="OUT (-)" data-c="out" onclick="setFlow(this)">OUT −</button>
-      <button class="fb" data-v="TRANSFER" data-c="tr" onclick="setFlow(this)">TRANSFER</button>
+    <div class="hdr">
+      <div class="logo">money<em>Flow</em></div>
+      <div id="toast"></div>
     </div>
-  </div>
 
-  <div class="sec">
-    <div class="lbl">Amount</div>
-    <div class="amt-box">
-      <span class="rp">₹</span>
-      <input type="number" id="amount" placeholder="0" inputmode="decimal" autocomplete="off"/>
+    <div class="sec">
+      <div class="lbl">Flow Type</div>
+      <div class="flow-row">
+        <button class="fb" data-v="IN (+)" data-c="in" onclick="setFlow(this)">IN +</button>
+        <button class="fb sel-out" data-v="OUT (-)" data-c="out" onclick="setFlow(this)">OUT −</button>
+        <button class="fb" data-v="TRANSFER" data-c="tr" onclick="setFlow(this)">TRANSFER</button>
+      </div>
     </div>
-  </div>
 
-  <div class="sec">
-    <div class="lbl">Account</div>
-    <div class="acct-row" id="acct-grid">
-      <button class="ab on" data-v="Cash"     onclick="setAcct(this)">Cash</button>
-      <button class="ab"    data-v="UBI"      onclick="setAcct(this)">UBI</button>
-      <button class="ab"    data-v="Kotak811" onclick="setAcct(this)">Kotak811</button>
-      <button class="ab"    data-v="SBI"      onclick="setAcct(this)">SBI</button>
-      <button class="ab"    data-v="Zerodha"  onclick="setAcct(this)">Zerodha</button>
-      <button class="ab"    data-v="Axis"     onclick="setAcct(this)">Axis</button>
+    <div class="sec">
+      <div class="lbl">Amount</div>
+      <div class="amt-box">
+        <span class="rp">₹</span>
+        <input type="number" id="amount" placeholder="0" inputmode="decimal" autocomplete="off" />
+      </div>
     </div>
-  </div>
 
-  <div class="sec hidden" id="dest-sec">
-    <div class="lbl">Destination Account</div>
-    <div class="acct-row" id="dest-grid">
-      <button class="ab" data-v="Cash"     onclick="setDest(this)">Cash</button>
-      <button class="ab" data-v="UBI"      onclick="setDest(this)">UBI</button>
-      <button class="ab" data-v="Kotak811" onclick="setDest(this)">Kotak811</button>
-      <button class="ab" data-v="SBI"      onclick="setDest(this)">SBI</button>
-      <button class="ab" data-v="Zerodha"  onclick="setDest(this)">Zerodha</button>
-      <button class="ab" data-v="Axis"     onclick="setDest(this)">Axis</button>
+    <div class="sec">
+      <div class="lbl">Account</div>
+      <div class="acct-row" id="acct-grid">
+        <button class="ab on" data-v="Cash" onclick="setAcct(this)">Cash</button>
+        <button class="ab" data-v="UBI" onclick="setAcct(this)">UBI</button>
+        <button class="ab" data-v="Kotak811" onclick="setAcct(this)">Kotak811</button>
+        <button class="ab" data-v="SBI" onclick="setAcct(this)">SBI</button>
+        <button class="ab" data-v="Zerodha" onclick="setAcct(this)">Zerodha</button>
+        <button class="ab" data-v="Axis" onclick="setAcct(this)">Axis</button>
+      </div>
     </div>
-  </div>
 
-  <div class="sec" id="cat-sec">
-    <div class="lbl">Category</div>
-    <div class="cat-row" id="cat-grid">
-      <button class="cb" data-v="Groceries"          onclick="setCat(this)"><span class="i">🛒</span>Groceries</button>
-      <button class="cb" data-v="Transport"          onclick="setCat(this)"><span class="i">🚗</span>Transport</button>
-      <button class="cb" data-v="Utilities"          onclick="setCat(this)"><span class="i">⚡</span>Utilities</button>
-      <button class="cb" data-v="Income"             onclick="setCat(this)"><span class="i">💰</span>Income</button>
-      <button class="cb" data-v="Dining & Lifestyle" onclick="setCat(this)"><span class="i">🍽️</span>Dining</button>
-      <button class="cb" data-v="Health"             onclick="setCat(this)"><span class="i">🏥</span>Health</button>
-      <button class="cb" data-v="Education"          onclick="setCat(this)"><span class="i">📚</span>Education</button>
-      <button class="cb" data-v="Relationships"      onclick="setCat(this)"><span class="i">🤝</span>Relations</button>
-      <button class="cb" data-v="Home Projects"      onclick="setCat(this)"><span class="i">🏠</span>Home</button>
-      <button class="cb" data-v="Investments"        onclick="setCat(this)"><span class="i">📈</span>Invest</button>
-      <button class="cb" data-v="Escrow / Lending"   onclick="setCat(this)"><span class="i">🏦</span>Escrow</button>
-      <button class="cb" data-v="Mandate"            onclick="setCat(this)"><span class="i">📋</span>Mandate</button>
-      <button class="cb" data-v="Adjustment"         onclick="setCat(this)"><span class="i">🔧</span>Adjust</button>
-      <button class="cb" data-v="Vice"               onclick="setCat(this)"><span class="i">🎯</span>Vice</button>
-      <button class="cb" data-v="Transfer (Self)"    onclick="setCat(this)"><span class="i">↔️</span>Transfer</button>
+    <div class="sec hidden" id="dest-sec">
+      <div class="lbl">Destination Account</div>
+      <div class="acct-row" id="dest-grid">
+        <button class="ab" data-v="Cash" onclick="setDest(this)">Cash</button>
+        <button class="ab" data-v="UBI" onclick="setDest(this)">UBI</button>
+        <button class="ab" data-v="Kotak811" onclick="setDest(this)">Kotak811</button>
+        <button class="ab" data-v="SBI" onclick="setDest(this)">SBI</button>
+        <button class="ab" data-v="Zerodha" onclick="setDest(this)">Zerodha</button>
+        <button class="ab" data-v="Axis" onclick="setDest(this)">Axis</button>
+      </div>
     </div>
+
+    <div class="sec" id="cat-sec">
+      <div class="lbl">Category</div>
+      <div class="cat-row" id="cat-grid">
+        <button class="cb" data-v="Investments" onclick="setCat(this)"><span class="i">📈</span>Investments</button>
+        <button class="cb" data-v="Transport" onclick="setCat(this)"><span class="i">🚗</span>Transport</button>
+        <button class="cb" data-v="Utilities" onclick="setCat(this)"><span class="i">⚡</span>Utilities</button>
+        <button class="cb" data-v="Income" onclick="setCat(this)"><span class="i">💰</span>Income</button>
+        <button class="cb" data-v="Dining & Lifestyle" onclick="setCat(this)"><span class="i">🤑</span>Dining and
+          Lifestyle</button>
+        <button class="cb" data-v="Health" onclick="setCat(this)"><span class="i">🏥</span>Health</button>
+        <button class="cb" data-v="Education" onclick="setCat(this)"><span class="i">📚</span>Education</button>
+        <button class="cb" data-v="Groceries" onclick="setCat(this)"><span class="i">🛒</span>Groceries</button>
+        <button class="cb" data-v="Home Projects" onclick="setCat(this)"><span class="i">🏠</span>Home</button>
+        <button class="cb" data-v="Relationships" onclick="setCat(this)"><span class="i">💖</span>Relationships</button>
+        <button class="cb" data-v="Escrow / Lending" onclick="setCat(this)"><span class="i">🏦</span>Escrow</button>
+        <button class="cb" data-v="Mandate" onclick="setCat(this)"><span class="i">📋</span>Mandate</button>
+        <button class="cb" data-v="Adjustment" onclick="setCat(this)"><span class="i">🔧</span>Adjust</button>
+        <button class="cb" data-v="Transfer (Self)" onclick="setCat(this)"><span class="i">↔️</span>Transfer</button>
+        <button class="cb" data-v="Vice" onclick="setCat(this)"><span class="i">😈</span>Vice</button>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="sec">
+      <div class="lbl">Description <span
+          style="text-transform:none;letter-spacing:0;font-size:8px;color:#333">optional</span></div>
+      <input class="ti" type="text" id="desc" placeholder="Swiggy, Petrol, EMI, Salary…" autocomplete="off" />
+    </div>
+
+    <div class="sec">
+      <div class="lbl">Person / Tag <span
+          style="text-transform:none;letter-spacing:0;font-size:8px;color:#333">optional</span></div>
+      <input class="ti" type="text" id="tag" placeholder="Rahul, Work, Trip…" autocomplete="off" />
+    </div>
+
+    <div class="sub-wrap">
+      <button id="sbtn" onclick="doSubmit()">LOG ENTRY</button>
+    </div>
+
   </div>
 
-  <div class="div"></div>
+  <!-- Hidden iframe: catches Google Forms redirect silently -->
+  <iframe id="hframe" name="hframe" style="display:none"></iframe>
 
-  <div class="sec">
-    <div class="lbl">Description <span style="text-transform:none;letter-spacing:0;font-size:8px;color:#333">optional</span></div>
-    <input class="ti" type="text" id="desc" placeholder="Swiggy, Petrol, EMI, Salary…" autocomplete="off"/>
-  </div>
+  <!-- Hidden form: POSTs directly to Google Forms into the iframe -->
+  <form id="hform" method="POST" target="hframe" style="display:none"
+    action="https://docs.google.com/forms/d/e/1FAIpQLSebWCEzvTalnJl0tC2W75s76SXRhC5kwtO7POVgmA4tr9CFxQ/formResponse">
+    <input type="hidden" id="hf_account" name="entry.1741914069" value="" />
+    <input type="hidden" id="hf_flow" name="entry.1345515553" value="" />
+    <input type="hidden" id="hf_amount" name="entry.223450486" value="" />
+    <input type="hidden" id="hf_dest" name="" value="" />
+    <input type="hidden" id="hf_cat" name="entry.1886466158" value="" />
+    <input type="hidden" id="hf_desc" name="entry.1888436392" value="" />
+    <input type="hidden" id="hf_tag" name="entry.1022112966" value="" />
+    <input type="hidden" name="fvv" value="1" />
+    <input type="hidden" id="hf_pageHistory" name="pageHistory" value="0,2" />
+    <input type="hidden" name="partialResponse" value="[null,null,\" 0\"]" />
+  </form>
 
-  <div class="sec">
-    <div class="lbl">Person / Tag <span style="text-transform:none;letter-spacing:0;font-size:8px;color:#333">optional</span></div>
-    <input class="ti" type="text" id="tag" placeholder="Rahul, Work, Trip…" autocomplete="off"/>
-  </div>
+  <script>
+    const st = { flowVal: "OUT (-)", flowCls: "out", account: "Cash", dest: null, cat: null };
 
-  <div class="sub-wrap">
-    <button id="sbtn" onclick="doSubmit()">LOG ENTRY</button>
-  </div>
+    function setFlow(btn) {
+      document.querySelectorAll('.fb').forEach(b => b.className = 'fb');
+      btn.classList.add('sel-' + btn.dataset.c);
+      st.flowVal = btn.dataset.v;
+      st.flowCls = btn.dataset.c;
+      const isTr = st.flowCls === 'tr';
+      document.getElementById('dest-sec').classList.toggle('hidden', !isTr);
+      document.getElementById('cat-sec').classList.toggle('hidden', isTr);
+      st.cat = isTr ? 'Transfer (Self)' : null;
+      document.querySelectorAll('#cat-grid .cb').forEach(b =>
+        b.classList.toggle('on', b.dataset.v === st.cat)
+      );
+      const sb = document.getElementById('sbtn');
+      sb.classList.remove('c-in', 'c-tr');
+      if (st.flowCls === 'in') sb.classList.add('c-in');
+      if (st.flowCls === 'tr') sb.classList.add('c-tr');
+    }
 
-</div>
+    function setAcct(btn) {
+      document.querySelectorAll('#acct-grid .ab').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      st.account = btn.dataset.v;
+    }
 
-<!-- Hidden iframe: catches Google Forms redirect silently -->
-<iframe id="hframe" name="hframe" style="display:none"></iframe>
+    function setDest(btn) {
+      document.querySelectorAll('#dest-grid .ab').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      st.dest = btn.dataset.v;
+    }
 
-<!-- Hidden form: POSTs directly to Google Forms into the iframe -->
-<form id="hform" method="POST" target="hframe" style="display:none"
-  action="https://docs.google.com/forms/d/e/1FAIpQLSebWCEzvTalnJl0tC2W75s76SXRhC5kwtO7POVgmA4tr9CFxQ/formResponse">
-  <input type="hidden" id="hf_account" name="entry.1741914069" value=""/>
-  <input type="hidden" id="hf_flow"    name="entry.1345515553" value=""/>
-  <input type="hidden" id="hf_amount"  name="entry.223450486"  value=""/>
-  <input type="hidden" id="hf_dest"    name=""                  value=""/>
-  <input type="hidden" id="hf_cat"     name="entry.1886466158" value=""/>
-  <input type="hidden" id="hf_desc"    name="entry.1888436392" value=""/>
-  <input type="hidden" id="hf_tag"     name="entry.1022112966" value=""/>
-  <input type="hidden"                 name="fvv"               value="1"/>
-  <input type="hidden" id="hf_pageHistory" name="pageHistory" value="0,2"/>
-  <input type="hidden" name="partialResponse" value="[null,null,\"0\"]"/>
-</form>
+    function setCat(btn) {
+      document.querySelectorAll('#cat-grid .cb').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      st.cat = btn.dataset.v;
+    }
 
-<script>
-const st = { flowVal:"OUT (-)", flowCls:"out", account:"Cash", dest:null, cat:null };
+    function doSubmit() {
+      const amountRaw = document.getElementById('amount').value.trim();
+      const desc = document.getElementById('desc').value.trim();
+      const tag = document.getElementById('tag').value.trim();
+      const btn = document.getElementById('sbtn');
 
-function setFlow(btn) {
-  document.querySelectorAll('.fb').forEach(b => b.className = 'fb');
-  btn.classList.add('sel-' + btn.dataset.c);
-  st.flowVal = btn.dataset.v;
-  st.flowCls = btn.dataset.c;
-  const isTr = st.flowCls === 'tr';
-  document.getElementById('dest-sec').classList.toggle('hidden', !isTr);
-  document.getElementById('cat-sec').classList.toggle('hidden', isTr);
-  st.cat = isTr ? 'Transfer (Self)' : null;
-  document.querySelectorAll('#cat-grid .cb').forEach(b =>
-    b.classList.toggle('on', b.dataset.v === st.cat)
-  );
-  const sb = document.getElementById('sbtn');
-  sb.classList.remove('c-in','c-tr');
-  if (st.flowCls === 'in') sb.classList.add('c-in');
-  if (st.flowCls === 'tr') sb.classList.add('c-tr');
-}
+      if (!amountRaw || isNaN(amountRaw) || parseFloat(amountRaw) <= 0) {
+        toast('Enter a valid amount', 'err'); return;
+      }
+      if (!st.cat) {
+        toast('Select a category', 'err'); return;
+      }
+      if (st.flowCls === 'tr' && !st.dest) {
+        toast('Select destination account', 'err'); return;
+      }
 
-function setAcct(btn) {
-  document.querySelectorAll('#acct-grid .ab').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  st.account = btn.dataset.v;
-}
+      // Fill hidden form
+      document.getElementById('hf_account').value = st.account;
+      document.getElementById('hf_flow').value = st.flowVal;
+      document.getElementById('hf_amount').value = amountRaw;
+      document.getElementById('hf_cat').value = st.cat;
+      document.getElementById('hf_desc').value = desc;
+      document.getElementById('hf_tag').value = tag;
 
-function setDest(btn) {
-  document.querySelectorAll('#dest-grid .ab').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  st.dest = btn.dataset.v;
-}
+      // Dest: only include in POST for TRANSFER — blank name = excluded from POST
+      const destEl = document.getElementById('hf_dest');
+      if (st.flowCls === 'tr' && st.dest) {
+        destEl.name = 'entry.337709069';
+        destEl.value = st.dest;
+      } else {
+        destEl.name = '';
+        destEl.value = '';
+      }
 
-function setCat(btn) {
-  document.querySelectorAll('#cat-grid .cb').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  st.cat = btn.dataset.v;
-}
+      btn.disabled = true;
+      btn.textContent = 'LOGGING…';
 
-function doSubmit() {
-  const amountRaw = document.getElementById('amount').value.trim();
-  const desc      = document.getElementById('desc').value.trim();
-  const tag       = document.getElementById('tag').value.trim();
-  const btn       = document.getElementById('sbtn');
+      // Set pageHistory: which sections were visited
+      // Non-transfer: section 0 (main) + section 2 (flowDetails) = "0,2"
+      // Transfer: section 0 + section 1 (selfTransfer) + section 2 = "0,1,2"
+      document.getElementById('hf_pageHistory').value = (st.flowCls === 'tr') ? '0,1,2' : '0,2';
 
-  if (!amountRaw || isNaN(amountRaw) || parseFloat(amountRaw) <= 0) {
-    toast('Enter a valid amount', 'err'); return;
-  }
-  if (!st.cat) {
-    toast('Select a category', 'err'); return;
-  }
-  if (st.flowCls === 'tr' && !st.dest) {
-    toast('Select destination account', 'err'); return;
-  }
+      document.getElementById('hform').submit();
 
-  // Fill hidden form
-  document.getElementById('hf_account').value = st.account;
-  document.getElementById('hf_flow').value    = st.flowVal;
-  document.getElementById('hf_amount').value  = amountRaw;
-  document.getElementById('hf_cat').value     = st.cat;
-  document.getElementById('hf_desc').value    = desc;
-  document.getElementById('hf_tag').value     = tag;
+      // Show success after 1.5s — can't read cross-origin iframe response
+      const sign = st.flowCls === 'in' ? '+' : st.flowCls === 'out' ? '−' : '⇄';
+      setTimeout(function () {
+        btn.classList.add('c-ok');
+        btn.textContent = '✓ LOGGED';
+        toast(sign + '₹' + Number(amountRaw).toLocaleString('en-IN') + '  ·  ' + st.cat, 'ok');
+        setTimeout(resetForm, 1800);
+      }, 1500);
+    }
 
-  // Dest: only include in POST for TRANSFER — blank name = excluded from POST
-  const destEl = document.getElementById('hf_dest');
-  if (st.flowCls === 'tr' && st.dest) {
-    destEl.name  = 'entry.337709069';
-    destEl.value = st.dest;
-  } else {
-    destEl.name  = '';
-    destEl.value = '';
-  }
+    function resetForm() {
+      document.getElementById('amount').value = '';
+      document.getElementById('desc').value = '';
+      document.getElementById('tag').value = '';
+      const btn = document.getElementById('sbtn');
+      btn.disabled = false;
+      btn.classList.remove('c-ok', 'c-er', 'c-in', 'c-tr');
+      if (st.flowCls === 'in') btn.classList.add('c-in');
+      if (st.flowCls === 'tr') btn.classList.add('c-tr');
+      btn.textContent = 'LOG ENTRY';
+      if (st.flowCls !== 'tr') {
+        document.querySelectorAll('#cat-grid .cb').forEach(b => b.classList.remove('on'));
+        st.cat = null;
+      }
+    }
 
-  btn.disabled    = true;
-  btn.textContent = 'LOGGING…';
-
-  // Set pageHistory: which sections were visited
-  // Non-transfer: section 0 (main) + section 2 (flowDetails) = "0,2"
-  // Transfer: section 0 + section 1 (selfTransfer) + section 2 = "0,1,2"
-  document.getElementById('hf_pageHistory').value = (st.flowCls === 'tr') ? '0,1,2' : '0,2';
-
-  document.getElementById('hform').submit();
-
-  // Show success after 1.5s — can't read cross-origin iframe response
-  const sign = st.flowCls==='in' ? '+' : st.flowCls==='out' ? '−' : '⇄';
-  setTimeout(function() {
-    btn.classList.add('c-ok');
-    btn.textContent = '✓ LOGGED';
-    toast(sign + '₹' + Number(amountRaw).toLocaleString('en-IN') + '  ·  ' + st.cat, 'ok');
-    setTimeout(resetForm, 1800);
-  }, 1500);
-}
-
-function resetForm() {
-  document.getElementById('amount').value = '';
-  document.getElementById('desc').value   = '';
-  document.getElementById('tag').value    = '';
-  const btn = document.getElementById('sbtn');
-  btn.disabled = false;
-  btn.classList.remove('c-ok','c-er','c-in','c-tr');
-  if (st.flowCls === 'in') btn.classList.add('c-in');
-  if (st.flowCls === 'tr') btn.classList.add('c-tr');
-  btn.textContent = 'LOG ENTRY';
-  if (st.flowCls !== 'tr') {
-    document.querySelectorAll('#cat-grid .cb').forEach(b => b.classList.remove('on'));
-    st.cat = null;
-  }
-}
-
-let toastTimer;
-function toast(msg, type) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.style.color = type === 'err' ? '#ff4444' : '#22c55e';
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { el.textContent = ''; }, 3500);
-}
-</script>
+    let toastTimer;
+    function toast(msg, type) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.style.color = type === 'err' ? '#ff4444' : '#22c55e';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { el.textContent = ''; }, 3500);
+    }
+  </script>
 </body>
+
 </html>
