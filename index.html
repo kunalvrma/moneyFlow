@@ -404,9 +404,9 @@
     <div class="sec">
       <div class="lbl">Account</div>
       <div class="acct-row" id="acct-grid">
-        <button class="ab on" data-v="Cash" onclick="setAcct(this)">Cash</button>
+        <button class="ab" data-v="Cash" onclick="setAcct(this)">Cash</button>
         <button class="ab" data-v="UBI" onclick="setAcct(this)">UBI</button>
-        <button class="ab" data-v="Kotak811" onclick="setAcct(this)">Kotak811</button>
+        <button class="ab on" data-v="Kotak811" onclick="setAcct(this)">Kotak811</button>
         <button class="ab" data-v="SBI" onclick="setAcct(this)">SBI</button>
         <button class="ab" data-v="Zerodha" onclick="setAcct(this)">Zerodha</button>
         <button class="ab" data-v="Axis" onclick="setAcct(this)">Axis</button>
@@ -486,7 +486,7 @@
   </form>
 
   <script>
-    const st = { flowVal: "OUT (-)", flowCls: "out", account: "Cash", dest: null, cat: null };
+    const st = { flowVal: "OUT (-)", flowCls: "out", account: "Kotak811", dest: null, cat: null };
 
     function setFlow(btn) {
       document.querySelectorAll('.fb').forEach(b => b.className = 'fb');
