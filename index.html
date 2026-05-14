@@ -530,7 +530,7 @@
       const tag = document.getElementById('tag').value.trim();
       const btn = document.getElementById('sbtn');
 
-      if (!amountRaw || isNaN(amountRaw) || parseFloat(amountRaw) <= 0) {
+      if (amountRaw === '' || isNaN(amountRaw) || parseFloat(amountRaw) < 0) {
         toast('Enter a valid amount', 'err'); return;
       }
       if (!st.cat) {
