@@ -287,6 +287,103 @@
       border-color: var(--b3)
     }
 
+    #sugg-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px
+    }
+
+    .sc {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1.5px solid var(--b2);
+      background: var(--s2);
+      color: var(--t2);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.12s;
+      white-space: nowrap
+    }
+
+    .sc:active {
+      transform: scale(0.93)
+    }
+
+    .sc.picked {
+      background: var(--s3);
+      border-color: var(--b3);
+      color: var(--t1)
+    }
+
+    #sugg-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 9px
+    }
+
+    .sc {
+      padding: 6px 13px;
+      border-radius: 20px;
+      border: 1.5px solid var(--b2);
+      background: var(--s2);
+      color: var(--t2);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.12s;
+      white-space: nowrap;
+      line-height: 1.4
+    }
+
+    .sc:active {
+      transform: scale(0.93);
+      background: var(--s3);
+      color: var(--t1);
+      border-color: var(--b3)
+    }
+
+    .sc.picked {
+      background: var(--s3);
+      border-color: var(--b3);
+      color: var(--t1)
+    }
+
+    #sugg-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px
+    }
+
+    .sc {
+      padding: 5px 11px;
+      border-radius: 20px;
+      border: 1.5px solid var(--b2);
+      background: var(--s2);
+      color: var(--t2);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.12s;
+      white-space: nowrap
+    }
+
+    .sc:active {
+      transform: scale(0.94);
+      background: var(--s3);
+      border-color: var(--b3);
+      color: var(--t1)
+    }
+
+    .sc.picked {
+      background: var(--s3);
+      border-color: var(--b3);
+      color: var(--t1)
+    }
+
     .div {
       height: 1px;
       background: var(--b1);
@@ -452,6 +549,7 @@
     <div class="sec">
       <div class="lbl">Description <span
           style="text-transform:none;letter-spacing:0;font-size:8px;color:#333">optional</span></div>
+      <div id="sugg-row" class="hidden"></div>
       <input class="ti" type="text" id="desc" placeholder="Swiggy, Petrol, EMI, Salary…" autocomplete="off" />
     </div>
 
@@ -504,12 +602,14 @@
       sb.classList.remove('c-in', 'c-tr');
       if (st.flowCls === 'in') sb.classList.add('c-in');
       if (st.flowCls === 'tr') sb.classList.add('c-tr');
+      renderSuggestions();
     }
 
     function setAcct(btn) {
       document.querySelectorAll('#acct-grid .ab').forEach(b => b.classList.remove('on'));
       btn.classList.add('on');
       st.account = btn.dataset.v;
+      renderSuggestions();
     }
 
     function setDest(btn) {
@@ -522,6 +622,7 @@
       document.querySelectorAll('#cat-grid .cb').forEach(b => b.classList.remove('on'));
       btn.classList.add('on');
       st.cat = btn.dataset.v;
+      renderSuggestions();
     }
 
     function doSubmit() {
@@ -571,6 +672,7 @@
       // Show success after 1.5s — can't read cross-origin iframe response
       const sign = st.flowCls === 'in' ? '+' : st.flowCls === 'out' ? '−' : '⇄';
       setTimeout(function () {
+        saveSuggestion(st.flowVal, st.account, st.cat, desc);
         btn.classList.add('c-ok');
         btn.textContent = '✓ LOGGED';
         toast(sign + '₹' + Number(amountRaw).toLocaleString('en-IN') + '  ·  ' + st.cat, 'ok');
@@ -592,7 +694,81 @@
         document.querySelectorAll('#cat-grid .cb').forEach(b => b.classList.remove('on'));
         st.cat = null;
       }
+      renderSuggestions();
     }
+
+    // ── Suggestions (localStorage) ───────────────────────
+    const SUGG_KEY = 'mf_sugg';
+    const SUGG_SEED_KEY = 'mf_sugg_seed_v1';
+    const SUGG_SEED = {"IN (+)|UBI|Archive":{"opening balance":1},"IN (+)|Kotak811|Income":{"cashback":19,"super cashback":4,"interest":2,"freelance PRJ20265":2,"AWACP salary":1,"sold iron garbage":1,"cashback interest":1,"solarSquare referral":1},"IN (+)|Kotak811|Archive":{"opening balance":1},"IN (+)|Cash|Archive":{"opening balance":1},"OUT (-)|Archive|Escrow / Lending":{"opening balance":4},"IN (+)|Archive|Escrow / Lending":{"opening balance":1},"OUT (-)|Kotak811|Vice":{"chai":59,"soda":38,"batashe":16,"momo":3,"juice":3,"maggie":2,"ankit asked for chai":1,"maggie chai":1,"poori chhola":1,"aryan":1,"junk food":1,"chupa chup":1,"coffee":1,"doodh":1,"gujiya":1,"dahi":1,"chhola poori":1,"samosa gujiya":1,"TLC nirala":1,"chai soda":1},"OUT (-)|Cash|Vice":{"batashe":6,"chai":6,"namkeen":2,"soda":2,"maggie":1,"satmola":1,"junk food":1,"digene":1,"aryan":1,"coffee":1,"cig nirala":1},"IN (+)|Cash|Income":{"sold iron garbage":1,"bday":1,"from shruti":1},"IN (+)|Cash|Escrow / Lending":{"returned":21,"HER contribution":4,"gave":2,"Returned":1,"exchange":1,"for painting":1,"for paint":1,"returned coffee":1,"trimurti":1,"lent":1,"peda":1,"fitting":1,"maggie":1,"by shruti":1},"OUT (-)|Kotak811|Escrow / Lending":{"lent":15,"recharge":6,"returned":6,"ticket":5,"petrol":4,"petrol scorpio":1,"bright motors":1,"poori chhola":1,"Recharge":1,"dadda recharge":1,"moto edge 60 fusion":1,"lent cake":1,"swiggy":1,"crocs":1,"Harsh":1,"train ticket":1,"exchange":1,"barber":1,"zepto refund":1,"adi ticket":1},"OUT (-)|Kotak811|Dining & Lifestyle":{"maggie":8,"sub spotify":5,"chai":5,"maggie aryan":2,"chhola poori":2,"pakodi":2,"gift from shruti":1,"dosa":1,"burger king":1,"hungry panda":1,"caffeine and cravings":1,"chhola puri":1,"short date":1,"aryan coffee":1,"idli":1,"chhola poori coke":1,"chai model":1,"momo":1,"kudiya ghat":1,"king edward":1},"IN (+)|Kotak811|Escrow / Lending":{"returned":21,"escrow":2,"recharge refund":1,"itook":1,"zepto refund":1,"returned Anand Maurya":1,"refund":1,"by shruti":1,"gave":1,"ticket refund":1,"HIS contribution":1},"OUT (-)|Cash|Transfer (Self)":{"to SBI":2,"to aryan":1,"to kotak":1,"chacha kajal":1},"IN (+)|SBI|Transfer (Self)":{"from axis":2,"from CASH":1,"from Cash":1,"from kotak":1,"from ubi":1},"IN (+)|SBI|Escrow / Lending":{"Escrow":1},"OUT (-)|Kotak811|Home Projects":{"renovation painting paint":3,"renovation painting regmaal":2,"gave":2,"solar square":1,"solar square stamp paper":1,"renovation painting putty":1,"renovation painting pop":1,"renovation painting acrylicPutty":1,"renovation wiring":1,"renovation parde awadh":1,"renovation parde wall to wall":1,"renovation furniture":1,"utilities meesho":1,"AC daikin":1,"AC porter":1,"AC plugAndCell":1,"AC installation":1,"hand towel, toothbrush holder & spice tray":1},"OUT (-)|Kotak811|Relationships":{"shrutiRecharge":18,"shruti recharge":12,"short date":8,"oyo":4,"aryan":2,"JF contri":2,"nirala dahi":2,"fried rice":1,"cake":1,"palak bday":1,"blinkit chips":1,"samosa aryan":1,"doodh aryan":1,"lohia date":1,"icecream mama":1,"momo shruti":1,"momo vikas":1,"metro aditya":1,"joint fund contri":1,"batashe aryan":1},"OUT (-)|Kotak811|Education":{"chai":7,"stick file":1,"printout":1,"file":1},"OUT (-)|Kotak811|Transport":{"petrol":15,"bike service":2,"bike bulb":1,"hawa":1},"OUT (-)|Kotak811|Utilities":{"electricity bill":6,"mummyRecharge":2,"repair moto screen":1,"mummy recharge":1,"print":1,"LPG":1,"annual fee 811super":1,"papaRecharge":1,"charging cable":1},"OUT (-)|Cash|Relationships":{"short date":3,"medicine aryan":1,"oyo":1,"roll aryan":1,"chips":1,"maggie@shruti":1,"short date with shruti":1,"mummy giftmoney":1},"OUT (-)|Cash|Dining & Lifestyle":{"mirror maze":1,"ice cream":1,"burgerPizza fried rice":1,"chinatown aryan":1,"maggie":1,"tailor":1},"OUT (-)|Kotak811|Transfer (Self)":{"to ubi":4,"to axis for JF cash":2,"recharge goving":1,"to sbi":1,"vikas shopping":1,"nirala zudio":1,"cash from shruti":1},"IN (+)|UBI|Transfer (Self)":{"from kotak":3,"from kotak811":1,"from zerodha":1,"from axis":1},"OUT (-)|UBI|Transfer (Self)":{"to kotak":3,"to zerodha":2,"to sbi":1},"IN (+)|Zerodha|Transfer (Self)":{"from UBI":2},"OUT (-)|SBI|Mandate":{"emi solarLoan":4,"accidental insurance":1,"solarLoan":1},"OUT (-)|Kotak811|Adjustment":{"to chacha for aryan":1,"shrutRecharge":1,"scholarship brokerage":1},"OUT (-)|Cash|Home Projects":{"renovation painting putty":3,"renovation painting shailendra":2,"renovation parde awadh":2,"renovation painting regmaal":1,"renovation painting stand":1,"renovation painting primer":1,"renovation painting paint":1,"renovation parde trimurti":1,"renovation parde awadh fitting":1},"OUT (-)|Cash|Groceries":{"dhaniya":1,"tamatar":1,"macroni":1,"namkeen holi":1,"atta":1,"peda":1,"jalebi":1,"chana peanuts":1,"samosa":1},"OUT (-)|SBI|Escrow / Lending":{"lent":1,"recharge aryan":1,"ticket rama singh":1},"IN (+)|UBI|Escrow / Lending":{"meesho":1,"returned":1},"OUT (-)|UBI|Escrow / Lending":{"train ticket":1,"gave":1,"crocs":1},"OUT (-)|SBI|Transfer (Self)":{"to kotak":3,"to axis for joint fund correction":1},"IN (+)|Kotak811|Transfer (Self)":{"from sbi":3,"from axis":2,"from ubi":2,"from aryan":1,"from cash":1,"variable drain from axis":1,"chacha gave":1,"from UBI":1},"OUT (-)|UBI|Investments":{"lic":5},"IN (+)|UBI|Income":{"cashback":3,"interest":1},"OUT (-)|Kotak811|Groceries":{"chaas":14,"atta":7,"dahi":4,"chhachh":1,"coconut oil":1,"rang snacks holi":1,"angoor":1,"paneer":1,"dona":1,"methi":1,"chhaas printout":1,"samosa":1,"roll":1,"protein":1,"odonil":1,"paneer gyan":1,"coffee etc":1},"OUT (-)|Cash|Escrow / Lending":{"returned":1,"Took from purse":1,"bottle set":1,"gave":1,"tubelight":1},"IN (+)|Cash|Transfer (Self)":{"recharge govind":1,"vikas shopping":1,"nirala zudio":1,"from kotak shruti":1},"OUT (-)|Kotak811|Health":{"medicine mummy":5,"medicine":4,"haircut":3,"ORS":2,"Dr Jitendra":1,"1mg medicine":1,"baby johnson":1,"xyxx underwear":1,"comb":1,"medicine itch":1,"tongue scraper":1,"scrubber":1,"thyrocare":1,"fee mummy drNaveen":1,"facewash":1,"minoxidil":1,"mummy medicine":1,"mummy stevia cinnamon chia":1},"IN (+)|Axis|Income":{"AWACP salary":5,"interest":1,"AWACP OT":1},"OUT (-)|Axis|Escrow / Lending":{"returned":3,"lineman":1,"recharge aryan":1,"gave":1},"IN (+)|Axis|Escrow / Lending":{"HIS contribution":3,"returned":1},"IN (+)|Axis|Transfer (Self)":{"from kotak for JF cash":2,"from sbi for joint fund correction":1},"OUT (-)|SBI|Relationships":{"joint fund":1},"OUT (-)|Axis|Home Projects":{"renovation painting shailendra":2,"renovation painting paint":1,"renovation painting stencil":1,"solarSquare armored cable":1},"OUT (-)|Cash|Utilities":{"repair moto battery":1,"matka":1},"OUT (-)|UBI|Home Projects":{"renovation painting paint":1},"OUT (-)|Axis|Transfer (Self)":{"to kotak":2,"to sbi":2,"variable drain to kotak":1,"to ubi":1},"OUT (-)|Cash|Adjustment":{"forgot":2,"lost at home":1,"check":1},"OUT (-)|SBI|Utilities":{"debit card charges":1},"OUT (-)|Cash|Education":{"security fee rrbJe":1,"ritm_chaiEtc":1},"OUT (-)|Zerodha|Utilities":{"fee smallcase jan":1,"fee smallcase feb":1,"fee smallcase mar":1,"fee smallcase apr":1,"fee smallcase may":1},"OUT (-)|Zerodha|Investments":{"equity smallcase buy":5},"OUT (-)|Zerodha|Transfer (Self)":{"to ubi":1},"OUT (-)|UBI|Relationships":{"oyo":1},"IN (+)|UBI|Adjustment":{"solar subsidy":1,"RRB feeReturn":1,"amazon pay crocs":1},"OUT (-)|Cash|Transport":{"petrol":3,"parking":1,"eRickshaw":1,"bike repair":1,"puncture":1},"OUT (-)|Cash|Health":{"towel":1,"medicine dadda":1},"IN (+)|Cash|Adjustment":{"shruti gave":1},"IN (+)|Kotak811|Adjustment":{"solar subsidy":1,"scholarship":1},"IN (+)|SBI|Income":{"mispay":1,"interest":1},"OUT (-)|UBI|Utilities":{"sms charges":1},"TRANSFER|Kotak811|Transfer (Self)":{"transfer":6,"dadda gave":2,"kotak to cash":1,"maggie":1,"short date":1,"recharge nirala":1,"transfer aryan":1,"ankit":1,"shruti gave":1},"TRANSFER|UBI|Transfer (Self)":{"ubi to kotak":1,"survival transfer":1,"transfer":1,"Transfer":1,"nirala":1},"TRANSFER|Axis|Transfer (Self)":{"transfer":3,"survival transfer":2,"variable drain transfer":1},"OUT (-)|UBI|Health":{"balaclava":1},"OUT (-)|UBI|Dining & Lifestyle":{"maggie":1,"crocs":1},"TRANSFER|Cash|Transfer (Self)":{"satish":1,"transfer":1},"OUT (-)|UBI|Education":{"chai":1},"TRANSFER|SBI|Transfer (Self)":{"transfer":2}};
+
+    function getSuggData() {
+      try { return JSON.parse(localStorage.getItem(SUGG_KEY) || '{}'); }
+      catch { return {}; }
+    }
+
+    function setSuggData(data) {
+      localStorage.setItem(SUGG_KEY, JSON.stringify(data));
+    }
+
+    function trimSuggCombo(combo) {
+      return Object.fromEntries(
+        Object.entries(combo).sort((a, b) => b[1] - a[1]).slice(0, 20)
+      );
+    }
+
+    function seedSuggestions() {
+      if (localStorage.getItem(SUGG_SEED_KEY) === '1') return;
+
+      const data = getSuggData();
+      Object.entries(SUGG_SEED).forEach(([key, seededCombo]) => {
+        if (!data[key]) data[key] = {};
+        Object.entries(seededCombo).forEach(([desc, count]) => {
+          data[key][desc] = (data[key][desc] || 0) + count;
+        });
+        data[key] = trimSuggCombo(data[key]);
+      });
+
+      setSuggData(data);
+      localStorage.setItem(SUGG_SEED_KEY, '1');
+    }
+
+    function saveSuggestion(flow, account, cat, desc) {
+      if (!desc || !cat) return;
+      const data = getSuggData();
+      const k = `${flow}|${account}|${cat}`;
+      if (!data[k]) data[k] = {};
+      data[k][desc] = (data[k][desc] || 0) + 1;
+      // Keep only top 20 per combo to avoid unbounded growth
+      data[k] = trimSuggCombo(data[k]);
+      setSuggData(data);
+    }
+
+    function renderSuggestions() {
+      const row = document.getElementById('sugg-row');
+      row.innerHTML = '';
+      if (!st.cat) { row.classList.add('hidden'); return; }
+      const data = getSuggData();
+      const k = `${st.flowVal}|${st.account}|${st.cat}`;
+      const combo = data[k];
+      if (!combo) { row.classList.add('hidden'); return; }
+      const top = Object.entries(combo).sort((a, b) => b[1] - a[1]).slice(0, 5);
+      if (!top.length) { row.classList.add('hidden'); return; }
+      top.forEach(([desc]) => {
+        const c = document.createElement('button');
+        c.className = 'sc';
+        c.textContent = desc;
+        c.onclick = () => {
+          document.getElementById('desc').value = desc;
+          row.querySelectorAll('.sc').forEach(x => x.classList.remove('picked'));
+          c.classList.add('picked');
+        };
+        row.appendChild(c);
+      });
+      row.classList.remove('hidden');
+    }
+
+    seedSuggestions();
 
     let toastTimer;
     function toast(msg, type) {
